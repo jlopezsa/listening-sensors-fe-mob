@@ -1,10 +1,13 @@
+/* eslint-disable */
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import AccelerometerSensor from './components/Accelerometer/Accelerometer';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hellow Listening Sensors!</Text>
+      <Text>Enable sensors:</Text>
+      <AccelerometerSensor />
       <StatusBar style="auto" />
     </View>
   );

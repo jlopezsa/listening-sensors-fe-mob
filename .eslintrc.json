@@ -27,6 +27,7 @@
             ]
           }
         ],
+        "no-underscore-dangle": ["error", { "allow": ["foo_", "_bar", "_slow", "_fast", "_subscribe", "_unsubscribe"] }],
         "import/prefer-default-export": "off",
         "react/react-in-jsx-scope": "off",
         "object-curly-newline": [
