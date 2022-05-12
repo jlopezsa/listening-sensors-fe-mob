@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
+import { db } from '../../database';
 
 function AccelerometerSensor() {
   const [data, setData] = useState({
@@ -38,6 +39,15 @@ function AccelerometerSensor() {
   }, []);
 
   const { x, y, z } = data;
+
+  // Get a list of cities from your database
+  async function getCities(db) {
+    const citiesCol = collection(db, 'cities');
+    const citySnapshot = await getDocs(citiesCol);
+    const cityList = citySnapshot.docs.map(doc => doc.data());
+    return cityList;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Accelerometer: (in Gs where 1 G = 9.81 m s^-2)</Text>
