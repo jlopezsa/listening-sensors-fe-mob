@@ -38,7 +38,7 @@ const createDataSensors = async (collectionName, data) => {
       x: data.x,
       y: data.y,
       z: data.z,
-      createTime: Timestamp.fromDate(new Date()).toMillis(),
+      createTime: Timestamp.fromDate(new Date()),
     });
     // console.log('Document written with ID: ', docRef.id);
   } catch (error) {
