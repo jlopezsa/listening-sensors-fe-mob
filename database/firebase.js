@@ -5,7 +5,7 @@ import { getAnalytics } from 'firebase/analytics';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { getFirestore, collection, getDoc, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDoc, addDoc, Timestamp } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -29,18 +29,18 @@ async function getDataSensors(collectionName) {
   const accelerometerCol = collection(db, collectionName);
   const accelerometerSnapshot = await getDoc(accelerometerCol);
   const accelerometerList = accelerometerSnapshot.docs.map((doc) => doc.data());
-  console.log('ACCEL: ', accelerometerList);
   return accelerometerList;
 }
 
 const createDataSensors = async (collectionName, data) => {
   try {
-    const docRef = await addDoc(collection(db, collectionName), {
+    await addDoc(collection(db, collectionName), {
       x: data.x,
       y: data.y,
       z: data.z,
+      createTime: Timestamp.fromDate(new Date()).toMillis(),
     });
-    console.log('Document written with ID: ', docRef.id);
+    // console.log('Document written with ID: ', docRef.id);
   } catch (error) {
     console.error('Error adding document: ', error);
   }

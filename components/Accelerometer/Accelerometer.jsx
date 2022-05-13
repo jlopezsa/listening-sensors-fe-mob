@@ -42,8 +42,12 @@ function AccelerometerSensor() {
 
   const handleSend = async () => {
     console.log('CREATE: ', data);
-    createDataSensors('accelerometer', data);
   }
+  
+  setInterval(() => {
+    createDataSensors('accelerometer', data);
+    console.log('SET-INTERVAL: ', data);
+  }, 10000);
   
   useEffect(() => {
     // getDataSensors('accelerometer');
