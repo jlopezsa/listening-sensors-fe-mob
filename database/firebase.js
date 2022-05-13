@@ -5,14 +5,14 @@ import { getAnalytics } from 'firebase/analytics';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, collection, getDoc, addDoc } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: 'AIzaSyANoaEsNHHUEbUomvFtLy62WX7moK78FB8',
   authDomain: 'listeningsensors.firebaseapp.com',
-  databaseURL: 'https://listeningsensors-default-rtdb.firebaseio.com',
+  //   databaseURL: 'https://listeningsensors-default-rtdb.firebaseio.com',
   projectId: 'listeningsensors',
   storageBucket: 'listeningsensors.appspot.com',
   messagingSenderId: '634491630956',
@@ -25,6 +25,27 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
+async function getDataSensors(collectionName) {
+  const accelerometerCol = collection(db, collectionName);
+  const accelerometerSnapshot = await getDoc(accelerometerCol);
+  const accelerometerList = accelerometerSnapshot.docs.map((doc) => doc.data());
+  console.log('ACCEL: ', accelerometerList);
+  return accelerometerList;
+}
+
+const createDataSensors = async (collectionName, data) => {
+  try {
+    const docRef = await addDoc(collection(db, collectionName), {
+      x: data.x,
+      y: data.y,
+      z: data.z,
+    });
+    console.log('Document written with ID: ', docRef.id);
+  } catch (error) {
+    console.error('Error adding document: ', error);
+  }
+};
+
 export {
-  app, analytics, db,
+  app, analytics, getDataSensors, createDataSensors,
 };

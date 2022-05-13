@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
-import { db } from '../../database';
+import { createDataSensors } from '../../database/firebase';
 
 function AccelerometerSensor() {
   const [data, setData] = useState({
@@ -40,13 +40,15 @@ function AccelerometerSensor() {
 
   const { x, y, z } = data;
 
-  // Get a list of cities from your database
-  async function getCities(db) {
-    const citiesCol = collection(db, 'cities');
-    const citySnapshot = await getDocs(citiesCol);
-    const cityList = citySnapshot.docs.map(doc => doc.data());
-    return cityList;
+  const handleSend = async () => {
+    console.log('CREATE: ', data);
+    createDataSensors('accelerometer', data);
   }
+  
+  useEffect(() => {
+    // getDataSensors('accelerometer');
+    // console.log('USEEFFECT: ', data);
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -73,6 +75,9 @@ function AccelerometerSensor() {
         </TouchableOpacity>
         <TouchableOpacity onPress={_fast} style={styles.button}>
           <Text>Fast</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleSend} style={styles.button}>
+          <Text>Send</Text>
         </TouchableOpacity>
       </View>
     </View>
