@@ -2,8 +2,9 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Gyroscope } from 'expo-sensors';
+import { createDataSensors } from '../../database/firebase';
 
-function GyroscopeComponent() {
+function GyroscopeSensor() {
   const [data, setData] = useState({
     x: 0,
     y: 0,
@@ -12,17 +13,18 @@ function GyroscopeComponent() {
   const [subscription, setSubscription] = useState(null);
 
   const _slow = () => {
-    Gyroscope.setUpdateInterval(1000);
+    Gyroscope.setUpdateInterval(5000);
   };
 
   const _fast = () => {
-    Gyroscope.setUpdateInterval(16);
+    Gyroscope.setUpdateInterval(500);
   };
 
   const _subscribe = () => {
     setSubscription(
       Gyroscope.addListener((gyroscopeData) => {
         setData(gyroscopeData);
+        createDataSensors('gyroscope', { gyroscopeData });
       }),
     );
   };
@@ -104,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GyroscopeComponent;
+export default GyroscopeSensor;
