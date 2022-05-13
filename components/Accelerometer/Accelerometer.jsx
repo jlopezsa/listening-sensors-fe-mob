@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
+import { createDataSensors } from '../../database/firebase';
 
 function AccelerometerSensor() {
   const [data, setData] = useState({
@@ -12,17 +13,18 @@ function AccelerometerSensor() {
   const [subscription, setSubscription] = useState(null);
 
   const _slow = () => {
-    Accelerometer.setUpdateInterval(1000);
+    Accelerometer.setUpdateInterval(5000);
   };
 
   const _fast = () => {
-    Accelerometer.setUpdateInterval(16);
+    Accelerometer.setUpdateInterval(500);
   };
 
   const _subscribe = () => {
     setSubscription(
       Accelerometer.addListener((accelerometerData) => {
         setData(accelerometerData);
+        createDataSensors('accelerometer', { accelerometerData });
       }),
     );
   };
@@ -38,6 +40,11 @@ function AccelerometerSensor() {
   }, []);
 
   const { x, y, z } = data;
+
+  const handleSend = async () => {
+    console.log('CREATE: ', data);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Accelerometer: (in Gs where 1 G = 9.81 m s^-2)</Text>
@@ -63,6 +70,9 @@ function AccelerometerSensor() {
         </TouchableOpacity>
         <TouchableOpacity onPress={_fast} style={styles.button}>
           <Text>Fast</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleSend} style={styles.button}>
+          <Text>Send</Text>
         </TouchableOpacity>
       </View>
     </View>
