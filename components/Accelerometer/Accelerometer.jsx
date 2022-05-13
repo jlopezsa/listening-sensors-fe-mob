@@ -24,7 +24,7 @@ function AccelerometerSensor() {
     setSubscription(
       Accelerometer.addListener((accelerometerData) => {
         setData(accelerometerData);
-        createDataSensors('accelerometer', accelerometerData);
+        createDataSensors('accelerometer', { accelerometerData });
       }),
     );
   };
