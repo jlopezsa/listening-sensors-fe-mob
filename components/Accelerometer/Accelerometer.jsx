@@ -24,7 +24,7 @@ function AccelerometerSensor() {
     setSubscription(
       Accelerometer.addListener((accelerometerData) => {
         setData(accelerometerData);
-        createDataSensors('accelerometer', accelerometerData);
+        createDataSensors('accelerometer', {accelerometerData});
       }),
     );
   };
@@ -44,18 +44,6 @@ function AccelerometerSensor() {
   const handleSend = async () => {
     console.log('CREATE: ', data);
   }
-  
-  // const countTimer = setInterval(() => {
-  //   _subscribe();
-  //   createDataSensors('accelerometer', data);
-  //   console.log('SET-INTERVAL: ', data);
-  // }, 5000);
-  
-  // useEffect(() => {
-  //   return () => {
-  //     clearInterval(countTimer);
-  //   };
-  // }, []);
 
   return (
     <View style={styles.container}>
