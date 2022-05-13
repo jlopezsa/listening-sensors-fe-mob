@@ -44,13 +44,14 @@ function AccelerometerSensor() {
     console.log('CREATE: ', data);
   }
   
+  const countTimer = setInterval(() => {
+    _subscribe();
+    createDataSensors('accelerometer', data);
+    console.log('SET-INTERVAL: ', data);
+  }, 5000);
   
   useEffect(() => {
-    const countTimer = setInterval(() => {
-      createDataSensors('accelerometer', data);
-      console.log('SET-INTERVAL: ', data);
-    }, 5000);
-    return function cleanup() {
+    return () => {
       clearInterval(countTimer);
     };
   }, []);
