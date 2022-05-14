@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import AccelerometerSensor from './components/Accelerometer/Accelerometer';
 import GyroscopeSensor from './components/Gyroscope/Gyroscope';
+// import LocationComponent from './components/Location/LocationComponent'
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
       <Text>Enable sensors:</Text>
       <AccelerometerSensor />
       <GyroscopeSensor />
+      {/* <LocationComponent /> */}
       <StatusBar style="auto" />
     </View>
   );
