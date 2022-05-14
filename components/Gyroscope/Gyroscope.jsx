@@ -1,10 +1,10 @@
 /* eslint-disable */
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Accelerometer } from 'expo-sensors';
+import { Gyroscope } from 'expo-sensors';
 import { createDataSensors } from '../../database/firebase';
 
-function AccelerometerSensor() {
+function GyroscopeSensor() {
   const [data, setData] = useState({
     x: 0,
     y: 0,
@@ -13,18 +13,18 @@ function AccelerometerSensor() {
   const [subscription, setSubscription] = useState(null);
 
   const _slow = () => {
-    Accelerometer.setUpdateInterval(5000);
+    Gyroscope.setUpdateInterval(5000);
   };
 
-  // const _fast = () => {
-  //   Accelerometer.setUpdateInterval(500);
-  // };
+//   const _fast = () => {
+//     Gyroscope.setUpdateInterval(500);
+//   };
 
   const _subscribe = () => {
     setSubscription(
-      Accelerometer.addListener((accelerometerData) => {
-        setData(accelerometerData);
-        createDataSensors('accelerometer_A', accelerometerData);
+      Gyroscope.addListener((gyroscopeData) => {
+        setData(gyroscopeData);
+        createDataSensors('gyroscope_A', gyroscopeData);
       }),
     );
   };
@@ -40,14 +40,9 @@ function AccelerometerSensor() {
   }, []);
 
   const { x, y, z } = data;
-
-  const handleSend = async () => {
-    console.log('CREATE: ', data);
-  }
-
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Accelerometer: (in Gs where 1 G = 9.81 m s^-2)</Text>
+      <Text style={styles.text}>Gyroscope:</Text>
       <Text style={styles.text}>
         x:
         {' '}
@@ -71,9 +66,6 @@ function AccelerometerSensor() {
         {/* <TouchableOpacity onPress={_fast} style={styles.button}>
           <Text>Fast</Text>
         </TouchableOpacity> */}
-        <TouchableOpacity onPress={handleSend} style={styles.button}>
-          <Text>Send</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -114,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AccelerometerSensor;
+export default GyroscopeSensor;

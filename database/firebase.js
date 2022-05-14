@@ -1,9 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import { getFirestore, collection, getDoc, addDoc, Timestamp } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
@@ -31,12 +27,11 @@ async function getDataSensors(collectionName) {
 }
 
 const createDataSensors = async (collectionName, data) => {
-  const { accelerometerData } = data;
   try {
     await addDoc(collection(db, collectionName), {
-      x: accelerometerData.x,
-      y: accelerometerData.y,
-      z: accelerometerData.z,
+      x: data.x,
+      y: data.y,
+      z: data.z,
       createTime: Timestamp.fromDate(new Date()),
     });
     // console.log('Document written with ID: ', docRef.id);
