@@ -27,12 +27,11 @@ async function getDataSensors(collectionName) {
 }
 
 const createDataSensors = async (collectionName, data) => {
-  const { accelerometerData } = data;
   try {
     await addDoc(collection(db, collectionName), {
-      x: accelerometerData.x,
-      y: accelerometerData.y,
-      z: accelerometerData.z,
+      x: data.x,
+      y: data.y,
+      z: data.z,
       createTime: Timestamp.fromDate(new Date()),
     });
     // console.log('Document written with ID: ', docRef.id);

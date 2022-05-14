@@ -16,15 +16,15 @@ function GyroscopeSensor() {
     Gyroscope.setUpdateInterval(5000);
   };
 
-  const _fast = () => {
-    Gyroscope.setUpdateInterval(500);
-  };
+//   const _fast = () => {
+//     Gyroscope.setUpdateInterval(500);
+//   };
 
   const _subscribe = () => {
     setSubscription(
       Gyroscope.addListener((gyroscopeData) => {
         setData(gyroscopeData);
-        createDataSensors('gyroscope', { gyroscopeData });
+        createDataSensors('gyroscope_A', gyroscopeData);
       }),
     );
   };
@@ -63,9 +63,9 @@ function GyroscopeSensor() {
         <TouchableOpacity onPress={_slow} style={[styles.button, styles.middleButton]}>
           <Text>Slow</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={_fast} style={styles.button}>
+        {/* <TouchableOpacity onPress={_fast} style={styles.button}>
           <Text>Fast</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

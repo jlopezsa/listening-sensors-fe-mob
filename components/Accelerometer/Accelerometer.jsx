@@ -16,15 +16,15 @@ function AccelerometerSensor() {
     Accelerometer.setUpdateInterval(5000);
   };
 
-  const _fast = () => {
-    Accelerometer.setUpdateInterval(500);
-  };
+  // const _fast = () => {
+  //   Accelerometer.setUpdateInterval(500);
+  // };
 
   const _subscribe = () => {
     setSubscription(
       Accelerometer.addListener((accelerometerData) => {
         setData(accelerometerData);
-        createDataSensors('accelerometer', { accelerometerData });
+        createDataSensors('accelerometer_A', accelerometerData);
       }),
     );
   };
@@ -68,9 +68,9 @@ function AccelerometerSensor() {
         <TouchableOpacity onPress={_slow} style={[styles.button, styles.middleButton]}>
           <Text>Slow</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={_fast} style={styles.button}>
+        {/* <TouchableOpacity onPress={_fast} style={styles.button}>
           <Text>Fast</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={handleSend} style={styles.button}>
           <Text>Send</Text>
         </TouchableOpacity>
