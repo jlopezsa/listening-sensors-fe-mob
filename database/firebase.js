@@ -1,13 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDoc, addDoc, Timestamp } from 'firebase/firestore';
+import { getDatabase, ref, set } from 'firebase/database';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyANoaEsNHHUEbUomvFtLy62WX7moK78FB8',
-  authDomain: 'listeningsensors.firebaseapp.com',
-  //   databaseURL: 'https://listeningsensors-default-rtdb.firebaseio.com',
+  apiKey: process.env.REACT_APP_KEY_FIREBASE,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: 'https://listeningsensors.firebaseio.com/',
   projectId: 'listeningsensors',
   storageBucket: 'listeningsensors.appspot.com',
   messagingSenderId: '634491630956',
@@ -18,6 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const dbRT = getDatabase();
 
 async function getDataSensors(collectionName) {
   const accelerometerCol = collection(db, collectionName);
@@ -40,6 +42,27 @@ const createDataSensors = async (collectionName, data) => {
   }
 };
 
+function writeAccelerometerData(data) {
+  set(ref(dbRT, 'accelerometer'), {
+    createTime: Timestamp.fromDate(new Date()),
+    x: data.x,
+    y: data.y,
+    z: data.z,
+  });
+}
+function writeGyroscopeData(data) {
+  set(ref(dbRT, 'gyroscope'), {
+    createTime: Timestamp.fromDate(new Date()),
+    x: data.x,
+    y: data.y,
+    z: data.z,
+  });
+}
+
 export {
-  app, getDataSensors, createDataSensors,
+  app,
+  getDataSensors,
+  createDataSensors,
+  writeAccelerometerData,
+  writeGyroscopeData,
 };

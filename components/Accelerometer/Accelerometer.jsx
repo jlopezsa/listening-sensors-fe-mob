@@ -2,7 +2,10 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
-import { createDataSensors } from '../../database/firebase';
+import {
+  createDataSensors,
+  writeAccelerometerData,
+} from '../../database/firebase';
 
 function AccelerometerSensor() {
   const [data, setData] = useState({
@@ -24,7 +27,8 @@ function AccelerometerSensor() {
     setSubscription(
       Accelerometer.addListener((accelerometerData) => {
         setData(accelerometerData);
-        createDataSensors('accelerometer_A', accelerometerData);
+        writeAccelerometerData(accelerometerData);
+        // createDataSensors('accelerometer_A', accelerometerData);
       }),
     );
   };
