@@ -2,7 +2,10 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Gyroscope } from 'expo-sensors';
-import { createDataSensors } from '../../database/firebase';
+import {
+  createDataSensors,
+  writeGyroscopeData,
+} from '../../database/firebase';
 
 function GyroscopeSensor() {
   const [data, setData] = useState({
@@ -16,15 +19,16 @@ function GyroscopeSensor() {
     Gyroscope.setUpdateInterval(5000);
   };
 
-//   const _fast = () => {
-//     Gyroscope.setUpdateInterval(500);
-//   };
+  //   const _fast = () => {
+    //     Gyroscope.setUpdateInterval(500);
+    //   };
 
-  const _subscribe = () => {
-    setSubscription(
-      Gyroscope.addListener((gyroscopeData) => {
-        setData(gyroscopeData);
-        createDataSensors('gyroscope_A', gyroscopeData);
+    const _subscribe = () => {
+      setSubscription(
+        Gyroscope.addListener((gyroscopeData) => {
+          setData(gyroscopeData);
+          writeGyroscopeData(gyroscopeData);
+          // createDataSensors('gyroscope_A', gyroscopeData);
       }),
     );
   };
