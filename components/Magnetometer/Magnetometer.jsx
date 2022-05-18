@@ -1,13 +1,12 @@
 /* eslint-disable */
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Gyroscope } from 'expo-sensors';
+import { Magnetometer } from 'expo-sensors';
 import {
-  createDataSensors,
-  writeGyroscopeData,
+  writeMagnetometerData,
 } from '../../database/firebase';
 
-function GyroscopeSensor() {
+export default function Compass() {
   const [data, setData] = useState({
     x: 0,
     y: 0,
@@ -16,20 +15,19 @@ function GyroscopeSensor() {
   const [subscription, setSubscription] = useState(null);
 
   const _slow = () => {
-    Gyroscope.setUpdateInterval(1000);
+    Magnetometer.setUpdateInterval(1000);
   };
 
-    const _fast = () => {
-        Gyroscope.setUpdateInterval(100);
-      };
+  const _fast = () => {
+    Magnetometer.setUpdateInterval(100);
+  };
 
-    const _subscribe = () => {
-      setSubscription(
-        Gyroscope.addListener((gyroscopeData) => {
-          setData(gyroscopeData);
-          writeGyroscopeData(gyroscopeData);
-          // createDataSensors('gyroscope_A', gyroscopeData);
-      }),
+  const _subscribe = () => {
+    setSubscription(
+      Magnetometer.addListener(magnetometerData => {
+        setData(magnetometerData);
+        writeMagnetometerData(magnetometerData);
+      })
     );
   };
 
@@ -46,19 +44,9 @@ function GyroscopeSensor() {
   const { x, y, z } = data;
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Gyroscope:</Text>
+      <Text style={styles.text}>Magnetometer:</Text>
       <Text style={styles.text}>
-        x:
-        {' '}
-        {round(x)}
-        {' '}
-        y:
-        {' '}
-        {round(y)}
-        {' '}
-        z:
-        {' '}
-        {round(z)}
+        x: {round(x)} y: {round(y)} z: {round(z)}
       </Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={subscription ? _unsubscribe : _subscribe} style={styles.button}>
@@ -109,5 +97,3 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
 });
-
-export default GyroscopeSensor;

@@ -16,12 +16,12 @@ function AccelerometerSensor() {
   const [subscription, setSubscription] = useState(null);
 
   const _slow = () => {
-    Accelerometer.setUpdateInterval(5000);
+    Accelerometer.setUpdateInterval(1000);
   };
 
-  // const _fast = () => {
-  //   Accelerometer.setUpdateInterval(500);
-  // };
+  const _fast = () => {
+    Accelerometer.setUpdateInterval(100);
+  };
 
   const _subscribe = () => {
     setSubscription(
@@ -45,9 +45,9 @@ function AccelerometerSensor() {
 
   const { x, y, z } = data;
 
-  const handleSend = async () => {
-    console.log('CREATE: ', data);
-  }
+  // const handleSend = async () => {
+  //   console.log('CREATE: ', data);
+  // }
 
   return (
     <View style={styles.container}>
@@ -72,12 +72,12 @@ function AccelerometerSensor() {
         <TouchableOpacity onPress={_slow} style={[styles.button, styles.middleButton]}>
           <Text>Slow</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={_fast} style={styles.button}>
+        <TouchableOpacity onPress={_fast} style={styles.button}>
           <Text>Fast</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity onPress={handleSend} style={styles.button}>
-          <Text>Send</Text>
         </TouchableOpacity>
+        {/* <TouchableOpacity onPress={handleSend} style={styles.button}>
+          <Text>Send</Text>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

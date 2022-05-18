@@ -58,6 +58,14 @@ function writeGyroscopeData(data) {
     z: data.z,
   });
 }
+function writeMagnetometerData(data) {
+  set(ref(dbRT, 'magnetometer'), {
+    createTime: Timestamp.fromDate(new Date()),
+    x: data.x,
+    y: data.y,
+    z: data.z,
+  });
+}
 
 export {
   app,
@@ -65,4 +73,5 @@ export {
   createDataSensors,
   writeAccelerometerData,
   writeGyroscopeData,
+  writeMagnetometerData,
 };
