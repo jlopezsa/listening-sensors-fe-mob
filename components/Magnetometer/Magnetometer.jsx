@@ -1,13 +1,12 @@
 /* eslint-disable */
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Accelerometer } from 'expo-sensors';
+import { Magnetometer } from 'expo-sensors';
 import {
-  createDataSensors,
-  writeAccelerometerData,
+  writeMagnetometerData,
 } from '../../database/firebase';
 
-function AccelerometerSensor() {
+export default function Compass() {
   const [data, setData] = useState({
     x: 0,
     y: 0,
@@ -16,20 +15,19 @@ function AccelerometerSensor() {
   const [subscription, setSubscription] = useState(null);
 
   const _slow = () => {
-    Accelerometer.setUpdateInterval(1000);
+    Magnetometer.setUpdateInterval(1000);
   };
 
   const _fast = () => {
-    Accelerometer.setUpdateInterval(100);
+    Magnetometer.setUpdateInterval(100);
   };
 
   const _subscribe = () => {
     setSubscription(
-      Accelerometer.addListener((accelerometerData) => {
-        setData(accelerometerData);
-        writeAccelerometerData(accelerometerData);
-        // createDataSensors('accelerometer_A', accelerometerData);
-      }),
+      Magnetometer.addListener(magnetometerData => {
+        setData(magnetometerData);
+        writeMagnetometerData(magnetometerData);
+      })
     );
   };
 
@@ -44,26 +42,11 @@ function AccelerometerSensor() {
   }, []);
 
   const { x, y, z } = data;
-
-  // const handleSend = async () => {
-  //   console.log('CREATE: ', data);
-  // }
-
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Accelerometer: (in Gs where 1 G = 9.81 m s^-2)</Text>
+      <Text style={styles.text}>Magnetometer:</Text>
       <Text style={styles.text}>
-        x:
-        {' '}
-        {round(x)}
-        {' '}
-        y:
-        {' '}
-        {round(y)}
-        {' '}
-        z:
-        {' '}
-        {round(z)}
+        x: {round(x)} y: {round(y)} z: {round(z)}
       </Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={subscription ? _unsubscribe : _subscribe} style={styles.button}>
@@ -75,9 +58,6 @@ function AccelerometerSensor() {
         <TouchableOpacity onPress={_fast} style={styles.button}>
           <Text>Fast</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={handleSend} style={styles.button}>
-          <Text>Send</Text>
-        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -117,5 +97,3 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
 });
-
-export default AccelerometerSensor;
