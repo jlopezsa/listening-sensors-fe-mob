@@ -28,7 +28,6 @@ function GyroscopeSensor() {
         Gyroscope.addListener((gyroscopeData) => {
           setData(gyroscopeData);
           writeGyroscopeData(gyroscopeData);
-          // createDataSensors('gyroscope_A', gyroscopeData);
       }),
     );
   };
