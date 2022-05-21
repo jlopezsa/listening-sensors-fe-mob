@@ -43,7 +43,7 @@ const createDataSensors = async (collectionName, data) => {
 };
 
 function writeAccelerometerData(data) {
-  set(ref(dbRT, 'accelerometer'), {
+  set(ref(dbRT, 'sensorSet_A1/accelerometer'), {
     createTime: Timestamp.fromDate(new Date()),
     x: data.x,
     y: data.y,
@@ -51,7 +51,7 @@ function writeAccelerometerData(data) {
   });
 }
 function writeGyroscopeData(data) {
-  set(ref(dbRT, 'gyroscope'), {
+  set(ref(dbRT, 'sensorSet_A1/gyroscope'), {
     createTime: Timestamp.fromDate(new Date()),
     x: data.x,
     y: data.y,
@@ -59,7 +59,7 @@ function writeGyroscopeData(data) {
   });
 }
 function writeMagnetometerData(data) {
-  set(ref(dbRT, 'magnetometer'), {
+  set(ref(dbRT, 'sensorSet_A1/magnetometer'), {
     createTime: Timestamp.fromDate(new Date()),
     x: data.x,
     y: data.y,
