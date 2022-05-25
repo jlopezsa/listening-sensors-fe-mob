@@ -70,9 +70,6 @@ function AccelerometerSensor() {
         <TouchableOpacity onPress={_fast} style={styles.button}>
           <Text>Fast (0.25s)</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={handleSend} style={styles.button}>
-          <Text>Send</Text>
-        </TouchableOpacity> */}
       </View>
     </View>
   );
