@@ -20,7 +20,7 @@ function AccelerometerSensor() {
   };
 
   const _fast = () => {
-    Accelerometer.setUpdateInterval(500);
+    Accelerometer.setUpdateInterval(250);
   };
 
   const _subscribe = () => {
@@ -28,7 +28,6 @@ function AccelerometerSensor() {
       Accelerometer.addListener((accelerometerData) => {
         setData(accelerometerData);
         writeAccelerometerData(accelerometerData);
-        // createDataSensors('accelerometer_A', accelerometerData);
       }),
     );
   };
@@ -44,10 +43,6 @@ function AccelerometerSensor() {
   }, []);
 
   const { x, y, z } = data;
-
-  // const handleSend = async () => {
-  //   console.log('CREATE: ', data);
-  // }
 
   return (
     <View style={styles.container}>
@@ -70,10 +65,10 @@ function AccelerometerSensor() {
           <Text>{subscription ? 'On' : 'Off'}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={_slow} style={[styles.button, styles.middleButton]}>
-          <Text>Slow</Text>
+          <Text>Slow (1s)</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={_fast} style={styles.button}>
-          <Text>Fast</Text>
+          <Text>Fast (0.25s)</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity onPress={handleSend} style={styles.button}>
           <Text>Send</Text>
@@ -103,6 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     marginTop: 15,
+    width: 350,
   },
   button: {
     flex: 1,

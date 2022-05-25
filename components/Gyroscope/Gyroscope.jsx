@@ -64,10 +64,10 @@ function GyroscopeSensor() {
           <Text>{subscription ? 'On' : 'Off'}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={_slow} style={[styles.button, styles.middleButton]}>
-          <Text>Slow</Text>
+          <Text>Slow (1s)</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={_fast} style={styles.button}>
-          <Text>Fast</Text>
+          <Text>Fast (0.25s)</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     marginTop: 15,
+    width: 350,
   },
   button: {
     flex: 1,
