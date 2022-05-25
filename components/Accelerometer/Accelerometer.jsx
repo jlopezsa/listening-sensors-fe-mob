@@ -20,7 +20,7 @@ function AccelerometerSensor() {
   };
 
   const _fast = () => {
-    Accelerometer.setUpdateInterval(100);
+    Accelerometer.setUpdateInterval(500);
   };
 
   const _subscribe = () => {
