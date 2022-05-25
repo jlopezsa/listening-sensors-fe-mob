@@ -41,9 +41,19 @@ const createDataSensors = async (collectionName, data) => {
     console.error('Error adding document: ', error);
   }
 };
+function createCollectionData() {
+  set(ref(dbRT, 'sensorSet_A4'), {
+    createTime: Timestamp.fromDate(new Date()),
+    name: 'algo',
+    location: {
+      latitude: 3.333333,
+      longitude: -73.3333,
+    },
+  });
+}
 
 function writeAccelerometerData(data) {
-  set(ref(dbRT, 'sensorSet_A1/accelerometer'), {
+  set(ref(dbRT, 'sensorSet_A4/accelerometer'), {
     createTime: Timestamp.fromDate(new Date()),
     x: data.x,
     y: data.y,
@@ -51,7 +61,7 @@ function writeAccelerometerData(data) {
   });
 }
 function writeGyroscopeData(data) {
-  set(ref(dbRT, 'sensorSet_A1/gyroscope'), {
+  set(ref(dbRT, 'sensorSet_A4/gyroscope'), {
     createTime: Timestamp.fromDate(new Date()),
     x: data.x,
     y: data.y,
@@ -59,7 +69,7 @@ function writeGyroscopeData(data) {
   });
 }
 function writeMagnetometerData(data) {
-  set(ref(dbRT, 'sensorSet_A1/magnetometer'), {
+  set(ref(dbRT, 'sensorSet_A4/magnetometer'), {
     createTime: Timestamp.fromDate(new Date()),
     x: data.x,
     y: data.y,
@@ -74,4 +84,5 @@ export {
   writeAccelerometerData,
   writeGyroscopeData,
   writeMagnetometerData,
+  createCollectionData,
 };

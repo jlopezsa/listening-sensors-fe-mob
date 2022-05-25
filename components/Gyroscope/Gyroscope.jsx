@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Gyroscope } from 'expo-sensors';
 import {
-  createDataSensors,
+  createCollectionData,
   writeGyroscopeData,
 } from '../../database/firebase';
 
@@ -38,6 +38,7 @@ function GyroscopeSensor() {
   };
 
   useEffect(() => {
+    createCollectionData();
     _subscribe();
     return () => _unsubscribe();
   }, []);

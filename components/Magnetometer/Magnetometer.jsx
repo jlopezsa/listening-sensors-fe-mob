@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Magnetometer } from 'expo-sensors';
 import {
+  createCollectionData,
   writeMagnetometerData,
 } from '../../database/firebase';
 
@@ -37,6 +38,7 @@ export default function Compass() {
   };
 
   useEffect(() => {
+    createCollectionData();
     _subscribe();
     return () => _unsubscribe();
   }, []);

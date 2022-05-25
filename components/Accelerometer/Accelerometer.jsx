@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
 import {
-  createDataSensors,
+  createCollectionData,
   writeAccelerometerData,
 } from '../../database/firebase';
 
@@ -38,6 +38,7 @@ function AccelerometerSensor() {
   };
 
   useEffect(() => {
+    createCollectionData();
     _subscribe();
     return () => _unsubscribe();
   }, []);
