@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Magnetometer } from 'expo-sensors';
 import {
+  createCollectionData,
   writeMagnetometerData,
 } from '../../database/firebase';
 
@@ -37,6 +38,7 @@ export default function Compass() {
   };
 
   useEffect(() => {
+    // createCollectionData();
     _subscribe();
     return () => _unsubscribe();
   }, []);
@@ -53,10 +55,10 @@ export default function Compass() {
           <Text>{subscription ? 'On' : 'Off'}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={_slow} style={[styles.button, styles.middleButton]}>
-          <Text>Slow</Text>
+          <Text>Slow (1s)</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={_fast} style={styles.button}>
-          <Text>Fast</Text>
+          <Text>Fast (0.25s)</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -83,6 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     marginTop: 15,
+    width: 350,
   },
   button: {
     flex: 1,

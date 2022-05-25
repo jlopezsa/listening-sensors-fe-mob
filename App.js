@@ -4,12 +4,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import AccelerometerSensor from './components/Accelerometer/Accelerometer';
 import GyroscopeSensor from './components/Gyroscope/Gyroscope';
 import Magnetometer from './components/Magnetometer/Magnetometer'
+import CreateCollection from './components/CreaetCollection/CreateCollection';
 // import LocationComponent from './components/Location/LocationComponent'
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Text>Enable sensors:</Text>
+      <CreateCollection />
       <AccelerometerSensor />
       <GyroscopeSensor />
       <Magnetometer />
