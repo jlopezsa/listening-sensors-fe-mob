@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
 import {
-  createCollectionData,
   writeAccelerometerData,
 } from '../../database/firebase';
 
-function AccelerometerSensor() {
+function AccelerometerSensor(props) {
+  const { witInfoCollection } = props;
   const [data, setData] = useState({
     x: 0,
     y: 0,
@@ -27,7 +27,9 @@ function AccelerometerSensor() {
     setSubscription(
       Accelerometer.addListener((accelerometerData) => {
         setData(accelerometerData);
-        writeAccelerometerData(accelerometerData);
+        if(Object.keys(witInfoCollection).length !== 0){
+          writeAccelerometerData(accelerometerData, witInfoCollection.nameCollection);
+        }
       }),
     );
   };
@@ -38,10 +40,9 @@ function AccelerometerSensor() {
   };
 
   useEffect(() => {
-    // createCollectionData();
     _subscribe();
     return () => _unsubscribe();
-  }, []);
+  }, [witInfoCollection]);
 
   const { x, y, z } = data;
 

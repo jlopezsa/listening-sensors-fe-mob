@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Gyroscope } from 'expo-sensors';
 import {
-  createCollectionData,
   writeGyroscopeData,
 } from '../../database/firebase';
 
-function GyroscopeSensor() {
+function GyroscopeSensor(props) {
+  const { witInfoCollection } = props;
   const [data, setData] = useState({
     x: 0,
     y: 0,
@@ -20,14 +20,16 @@ function GyroscopeSensor() {
   };
 
     const _fast = () => {
-        Gyroscope.setUpdateInterval(500);
+        Gyroscope.setUpdateInterval(250);
       };
 
     const _subscribe = () => {
       setSubscription(
         Gyroscope.addListener((gyroscopeData) => {
           setData(gyroscopeData);
-          writeGyroscopeData(gyroscopeData);
+          if(Object.keys(witInfoCollection).length !== 0){
+            writeGyroscopeData(gyroscopeData, witInfoCollection.nameCollection);
+          }
       }),
     );
   };
@@ -38,10 +40,9 @@ function GyroscopeSensor() {
   };
 
   useEffect(() => {
-    // createCollectionData();
     _subscribe();
     return () => _unsubscribe();
-  }, []);
+  }, [witInfoCollection]);
 
   const { x, y, z } = data;
   return (

@@ -52,24 +52,24 @@ function createCollectionData(nameColl, nameSenSet) {
   });
 }
 
-function writeAccelerometerData(data) {
-  set(ref(dbRT, 'sensorSet_A4/accelerometer'), {
+function writeAccelerometerData(data, nameCollection) {
+  set(ref(dbRT, `${nameCollection}/accelerometer`), {
     createTime: Timestamp.fromDate(new Date()),
     x: data.x,
     y: data.y,
     z: data.z,
   });
 }
-function writeGyroscopeData(data) {
-  set(ref(dbRT, 'sensorSet_A4/gyroscope'), {
+function writeGyroscopeData(data, nameCollection) {
+  set(ref(dbRT, `${nameCollection}/gyroscope`), {
     createTime: Timestamp.fromDate(new Date()),
     x: data.x,
     y: data.y,
     z: data.z,
   });
 }
-function writeMagnetometerData(data) {
-  set(ref(dbRT, 'sensorSet_A4/magnetometer'), {
+function writeMagnetometerData(data, nameCollection) {
+  set(ref(dbRT, `${nameCollection}/magnetometer`), {
     createTime: Timestamp.fromDate(new Date()),
     x: data.x,
     y: data.y,
