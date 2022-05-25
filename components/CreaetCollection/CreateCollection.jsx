@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { createCollectionData } from '../../database/firebase';
 
-function CreateCollection() {
+function CreateCollection(props) {
+  const { toGetInfo } = props;
   const [infoCollection, setInfoCollection] = useState({});
 
   const handleChange = (field, text) => {
@@ -17,7 +18,8 @@ function CreateCollection() {
     e.preventDefault();
     const { nameCollection, nameSensorsSet} = infoCollection;
     createCollectionData(nameCollection, nameSensorsSet);
-    console.log('NAMES: ', infoCollection);
+    toGetInfo(infoCollection);
+    console.log('NAMES: ', nameCollection);
   }
 
   return (

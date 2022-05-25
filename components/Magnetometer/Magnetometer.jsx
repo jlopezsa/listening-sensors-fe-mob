@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Magnetometer } from 'expo-sensors';
 import {
-  createCollectionData,
   writeMagnetometerData,
 } from '../../database/firebase';
 
-export default function Compass() {
+export default function Compass(props) {
+  const { witInfoCollection } = props;
   const [data, setData] = useState({
     x: 0,
     y: 0,
@@ -20,14 +20,16 @@ export default function Compass() {
   };
 
   const _fast = () => {
-    Magnetometer.setUpdateInterval(500);
+    Magnetometer.setUpdateInterval(250);
   };
 
   const _subscribe = () => {
     setSubscription(
       Magnetometer.addListener(magnetometerData => {
         setData(magnetometerData);
-        writeMagnetometerData(magnetometerData);
+        if(Object.keys(witInfoCollection).length !== 0){
+          writeMagnetometerData(magnetometerData,  witInfoCollection.nameCollection);
+        }
       })
     );
   };
@@ -38,10 +40,9 @@ export default function Compass() {
   };
 
   useEffect(() => {
-    // createCollectionData();
     _subscribe();
     return () => _unsubscribe();
-  }, []);
+  }, [witInfoCollection]);
 
   const { x, y, z } = data;
   return (
