@@ -20,7 +20,7 @@ function GyroscopeSensor() {
   };
 
     const _fast = () => {
-        Gyroscope.setUpdateInterval(100);
+        Gyroscope.setUpdateInterval(500);
       };
 
     const _subscribe = () => {

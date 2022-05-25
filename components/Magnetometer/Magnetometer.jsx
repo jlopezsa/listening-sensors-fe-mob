@@ -19,7 +19,7 @@ export default function Compass() {
   };
 
   const _fast = () => {
-    Magnetometer.setUpdateInterval(100);
+    Magnetometer.setUpdateInterval(500);
   };
 
   const _subscribe = () => {
