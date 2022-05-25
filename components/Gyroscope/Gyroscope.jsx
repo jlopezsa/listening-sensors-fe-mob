@@ -38,7 +38,7 @@ function GyroscopeSensor() {
   };
 
   useEffect(() => {
-    createCollectionData();
+    // createCollectionData();
     _subscribe();
     return () => _unsubscribe();
   }, []);

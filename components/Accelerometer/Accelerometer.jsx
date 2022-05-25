@@ -38,7 +38,7 @@ function AccelerometerSensor() {
   };
 
   useEffect(() => {
-    createCollectionData();
+    // createCollectionData();
     _subscribe();
     return () => _unsubscribe();
   }, []);

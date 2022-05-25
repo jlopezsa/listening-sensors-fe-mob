@@ -38,7 +38,7 @@ export default function Compass() {
   };
 
   useEffect(() => {
-    createCollectionData();
+    // createCollectionData();
     _subscribe();
     return () => _unsubscribe();
   }, []);

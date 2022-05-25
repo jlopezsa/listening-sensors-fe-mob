@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { TextInput } from 'react-native-web';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { createCollectionData } from '../../database/firebase';
 
 function CreateCollection() {
   const [infoCollection, setInfoCollection] = useState({});
@@ -13,8 +13,10 @@ function CreateCollection() {
     });
   };
 
-  const createCollection = (e) => {
+  const onPressCreate = (e) => {
     e.preventDefault();
+    const { nameCollection, nameSensorsSet} = infoCollection;
+    createCollectionData(nameCollection, nameSensorsSet);
     console.log('NAMES: ', infoCollection);
   }
 
@@ -31,9 +33,11 @@ function CreateCollection() {
         onChangeText={(text) => handleChange('nameSensorsSet', text)}
         placeHolder='Ingrese nombre'
       />
-      <TouchableOpacity style={styles.button} onPress={createCollection} placeHolder='Ingrese nombre'>
-        <Text>Crear conjunto de sensores</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={onPressCreate} placeHolder='Ingrese nombre'>
+          <Text style={styles.buttonText}>Crear</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -46,6 +50,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 30,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    marginTop: 15,
+    width: 350,
+  },
   button: {
     flex: 1,
     justifyContent: 'center',
@@ -53,6 +63,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee',
     padding: 10,
     marginTop: 20,
+    // height: 10,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#000000',
+    textAlign: 'center',
   },
 });
 

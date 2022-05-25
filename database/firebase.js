@@ -41,10 +41,10 @@ const createDataSensors = async (collectionName, data) => {
     console.error('Error adding document: ', error);
   }
 };
-function createCollectionData() {
-  set(ref(dbRT, 'sensorSet_A4'), {
+function createCollectionData(nameColl, nameSenSet) {
+  set(ref(dbRT, nameColl), {
     createTime: Timestamp.fromDate(new Date()),
-    name: 'algo',
+    name: nameSenSet,
     location: {
       latitude: 3.333333,
       longitude: -73.3333,
