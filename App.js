@@ -6,7 +6,6 @@ import AccelerometerSensor from './components/Accelerometer/Accelerometer';
 import GyroscopeSensor from './components/Gyroscope/Gyroscope';
 import Magnetometer from './components/Magnetometer/Magnetometer'
 import CreateCollection from './components/CreaetCollection/CreateCollection';
-// import LocationComponent from './components/Location/LocationComponent'
 
 export default function App() {
   const [newCollection, setNewCollection] = useState({});
@@ -17,7 +16,6 @@ export default function App() {
       <AccelerometerSensor witInfoCollection={newCollection}/>
       <GyroscopeSensor witInfoCollection={newCollection}/>
       <Magnetometer witInfoCollection={newCollection}/>
-      {/* <LocationComponent /> */}
       <StatusBar style="auto" />
     </View>
   );

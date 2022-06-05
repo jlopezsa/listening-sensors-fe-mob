@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { createCollectionData } from '../../database/firebase';
+import LocationComponent from '../Location/LocationComponent'
 
 function CreateCollection(props) {
   const { toGetInfo } = props;
@@ -35,6 +36,7 @@ function CreateCollection(props) {
         onChangeText={(text) => handleChange('nameSensorsSet', text)}
         placeHolder='Ingrese nombre'
       />
+      <LocationComponent />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={onPressCreate} placeHolder='Ingrese nombre'>
           <Text style={styles.buttonText}>Crear</Text>
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     alignItems: 'stretch',
-    marginTop: 15,
+    marginTop: 10,
     width: 350,
   },
   button: {
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#eee',
     padding: 10,
-    marginTop: 20,
+    marginTop: 0,
     // height: 10,
   },
   buttonText: {

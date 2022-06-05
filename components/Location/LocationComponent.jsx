@@ -5,7 +5,18 @@ import * as Device from 'expo-device';
 import * as Location from 'expo-location';
 
 function LocationComponent() {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState({
+    coords:{
+      accuracy: 0,
+      altitude: null,
+      altitudeAccuracy: null,
+      heading: null,
+      latitude: 0,
+      longitude: 0,
+      speed: null,
+    },
+    timestamp: 0,
+  });
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
@@ -32,13 +43,17 @@ function LocationComponent() {
     text = errorMsg;
   } else if (location) {
     console.log('FLAG-LOCATION: ', location.coords.latitude, location.coords.longitude);
+    console.log('LOCATION: ', location);
     text = JSON.stringify(location);
     console.log('FLAG-TEXT: ', text);
+    // debugger;
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.paragraph}>{text}</Text>
+      <Text style={styles.paragraphTitle}>Información de ubicación de los sensores:</Text>
+      <Text style={styles.paragraph}>Latitud: {location.coords.latitude}, Longitud: {location.coords.longitude}</Text>
+      <Text style={styles.paragraph}>Altitud: {location.coords.altitude} msnm</Text>
     </View>
   );
 }
@@ -48,12 +63,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    padding: 0,
   },
   paragraph: {
-    fontSize: 18,
+    fontSize: 14,
     textAlign: 'center',
   },
+  paragraphTitle: {
+    fontWeight: 'bold',
+  }
 });
 
 export default LocationComponent;
