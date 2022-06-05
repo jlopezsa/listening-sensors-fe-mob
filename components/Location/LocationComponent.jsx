@@ -4,7 +4,7 @@ import { Platform, Text, View, StyleSheet } from 'react-native';
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
 
-function LocationComponent() {
+function LocationComponent({ updateCoordinates }) {
   const [location, setLocation] = useState({
     coords:{
       accuracy: 0,
@@ -34,19 +34,18 @@ function LocationComponent() {
       }
       const location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      updateCoordinates({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
     })();
   }, []);
 
   let text = 'Waiting..';
   if (errorMsg) {
-    console.log('FLAG-01');
     text = errorMsg;
   } else if (location) {
-    console.log('FLAG-LOCATION: ', location.coords.latitude, location.coords.longitude);
-    console.log('LOCATION: ', location);
     text = JSON.stringify(location);
-    console.log('FLAG-TEXT: ', text);
-    // debugger;
   }
 
   return (
@@ -60,10 +59,12 @@ function LocationComponent() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 0,
+    marginTop: 0,
+    marginBottom: 0,
+    height: 80,
   },
   paragraph: {
     fontSize: 14,
