@@ -2,10 +2,15 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { createCollectionData } from '../../database/firebase';
+import LocationComponent from '../Location/LocationComponent'
 
 function CreateCollection(props) {
   const { toGetInfo } = props;
   const [infoCollection, setInfoCollection] = useState({});
+  const [ coordinateSensors, setCoodinateSensors ] = useState ({
+    latitude: 0,
+    longitude: 0,
+  });
 
   const handleChange = (field, text) => {
     setInfoCollection({
@@ -17,9 +22,8 @@ function CreateCollection(props) {
   const onPressCreate = (e) => {
     e.preventDefault();
     const { nameCollection, nameSensorsSet} = infoCollection;
-    createCollectionData(nameCollection, nameSensorsSet);
+    createCollectionData(nameCollection, nameSensorsSet, coordinateSensors);
     toGetInfo(infoCollection);
-    console.log('NAMES: ', nameCollection);
   }
 
   return (
@@ -35,6 +39,7 @@ function CreateCollection(props) {
         onChangeText={(text) => handleChange('nameSensorsSet', text)}
         placeHolder='Ingrese nombre'
       />
+      <LocationComponent style={styles.location} updateCoordinates={setCoodinateSensors}/>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={onPressCreate} placeHolder='Ingrese nombre'>
           <Text style={styles.buttonText}>Crear</Text>
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     alignItems: 'stretch',
-    marginTop: 15,
+    marginTop: 10,
     width: 350,
   },
   button: {
@@ -64,13 +69,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#eee',
     padding: 10,
-    marginTop: 20,
+    marginTop: 0,
     // height: 10,
   },
   buttonText: {
     fontSize: 18,
     color: '#000000',
     textAlign: 'center',
+  },
+  location: {
+    marginTop: 0,
+    marginBottom: 0,
   },
 });
 

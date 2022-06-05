@@ -41,13 +41,13 @@ const createDataSensors = async (collectionName, data) => {
     console.error('Error adding document: ', error);
   }
 };
-function createCollectionData(nameColl, nameSenSet) {
+function createCollectionData(nameColl, nameSenSet, coordinateSensors) {
   set(ref(dbRT, nameColl), {
     createTime: Timestamp.fromDate(new Date()),
     name: nameSenSet,
     location: {
-      latitude: 3.333333,
-      longitude: -73.3333,
+      latitude: coordinateSensors.latitude,
+      longitude: coordinateSensors.longitude,
     },
   });
 }
